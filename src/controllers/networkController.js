@@ -73,9 +73,9 @@ exports.network_list = async function(req, res) {
 
   try {
     networks = await zt.network_list();
-    res.render('networks', {title: 'Networks on this controller', navigate: navigate, networks: networks});
+    res.render('networks', {title: '网络列表', navigate: navigate, networks: networks});
   } catch (err) {
-    res.render('networks', {title: 'Networks on this controller', navigate: navigate, error: 'Error retrieving list of networks on this controller: ' + err});
+    res.render('networks', {title: '网络列表', navigate: navigate, error: '无法找到启用的网络或出现异常: ' + err});
   }
 };
 
@@ -118,7 +118,7 @@ exports.network_create_post = async function(req, res) {
       active: 'add_network',
     }
 
-  req.checkBody('name', 'Network name required').notEmpty();
+  req.checkBody('name', '请输入网络名称').notEmpty();
 
   req.sanitize('name').escape();
   req.sanitize('name').trim();
@@ -128,14 +128,14 @@ exports.network_create_post = async function(req, res) {
   let name = { name: req.body.name };
 
   if (errors) {
-    res.render('network_create', {title: 'Create Network', navigate: navigate, name: name, errors: errors});
+    res.render('network_create', {title: '创建网络', navigate: navigate, name: name, errors: errors});
     return;
   } else {
     try {
       const network = await zt.network_create(name);
       res.redirect('/controller/network/' + network.nwid);
     } catch (err) {
-      res.render('network_detail', {title: 'Create Network - error', navigate: navigate, error: 'Error creating network ' + name.name});
+      res.render('network_detail', {title: '创建网络 - 异常', navigate: navigate, error: '创建网络时出现异常：' + name.name});
     }
   }
 };
@@ -206,7 +206,7 @@ exports.name = async function(req, res) {
       whence: '/controller/networks'
     }
 
-  req.checkBody('name', 'Network name required').notEmpty();
+  req.checkBody('name', '请输入网络名称').notEmpty();
   req.sanitize('name').escape();
   req.sanitize('name').trim();
 

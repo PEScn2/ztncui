@@ -9,14 +9,10 @@ block content
   h1!= title
 
   h2
-    a(href='https://zerotier.com' target='_blank') ZeroTier 
-    | network controller UI by 
-    a(href='https://key-networks.com' target='_blank') Key Networks
+    私有网络零信任安全连接工具
 
   if error
      b #{error}
   else
-    h4 This network controller has a ZeroTier address of <b>#{zt_status.address}</b>
-    h4 ZeroTier version <b>#{zt_status.version}</b>
-    h4
-      a(href='/controller/networks') List all networks on this network controller
+    h4 控制器ID： <b>#{zt_status.address}</b>
+    h4 基础版本： <b>#{zt_status.version}</b>
